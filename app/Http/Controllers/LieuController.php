@@ -25,7 +25,11 @@ class LieuController extends Controller
      */
     public function create()
     {
-        //
+        // creation
+        $lieux=Lieu::all();
+        return view('lieu/create',[
+            'lieu'=>$lieux
+        ]);
     }
 
     /**
@@ -37,6 +41,8 @@ class LieuController extends Controller
     public function store(Request $request)
     {
         //
+        Lieu::create( $request->all());
+        return redirect()->route('lieu.index');
     }
 
     /**
@@ -71,6 +77,9 @@ class LieuController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $lieux = Lieux::find($id);
+        $lieux->update($request->all());
+        return $lieux;
     }
 
     /**
@@ -82,5 +91,9 @@ class LieuController extends Controller
     public function destroy($id)
     {
         //
+        $lieux = Lieu::findOrFail($id);
+        $lieux->delete();
+
+        return ("lieux supprime");
     }
 }
